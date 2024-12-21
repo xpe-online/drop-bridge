@@ -1,0 +1,30 @@
+CTYPE html>
+<html>
+	<head>
+		    <title>留言板</title>
+		        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+		    <h1>留言板</h1>
+
+		        <div id="messages">
+				        {% for message in messages %}
+					        <div class="message">
+							            <p><strong>{{ message.username or 'Anonymous' }}:</strong> {{ message.content }}</p>
+								                <small>{{ message.created_at }}</small>
+										        </div>
+											        {% endfor %}
+												    </div>
+
+												        <h2>发布留言</h2>
+													    <form action="{{ url_for('add_message') }}" method="post">
+														            <label for="username">用户名:</label>
+															            <input type="text" id="username" name="username"><br><br>
+																            <label for="content">内容:</label>
+																	            <textarea id="content" name="content" required></textarea><br><br>
+																		            <button type="submit">提交</button>
+																			        </form>
+	</body>
+</html>
+
+
