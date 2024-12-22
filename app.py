@@ -4,6 +4,7 @@ from database import init_db
 import os
 
 app = Flask(__name__)
+token = 'chinoimomochat'
 
 # 初始化数据库 (如果不存在)
 init_db()
@@ -24,6 +25,10 @@ def index():
 def add_message():
         username = request.form.get('username')
         content = request.form['content']
+        key = request.form.get('key')
+
+        if key != token:
+            return 'Token is required', 400
 
         if not content:
             return 'Content is required', 400
@@ -35,7 +40,7 @@ def add_message():
 
         return redirect(url_for('index'))
 
-                                                                    # 在 Vercel 上部署时，需要使用 Vercel 提供的环境变量 PORT
+# 在 Vercel 上部署时，需要使用 Vercel 提供的环境变量 PORT
 if __name__ == '__main__':
-                                                                            app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+        app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
 
